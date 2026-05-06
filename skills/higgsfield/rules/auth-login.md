@@ -2,57 +2,94 @@
 
 ## Overview
 
-Higgsfield authentication is managed entirely by the MCP server using the user's stored session. There is no explicit login step, no API key to manage in code, and no OAuth flow to implement.
+Higgsfield supports two authentication paths:
 
-## Checking authentication status
+| Path | When to use |
+|---|---|
+| **CLI** (`higgsfield auth login`) | Running shell commands, using the `higgsfield` CLI |
+| **MCP server** (automatic) | Claude tool-use via the Higgsfield MCP server |
 
-Call `balance` to confirm the active session and retrieve account info:
+---
+
+## CLI authentication
+
+### Install the CLI
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/higgsfield-ai/cli/main/install.sh | sh
+```
+
+### Log in
+
+```bash
+higgsfield auth login
+```
+
+This opens a browser window. Complete the login flow, then return to the terminal — the CLI stores the session token automatically.
+
+### Check status
+
+```bash
+higgsfield account status
+```
+
+Prints the authenticated email, plan, and remaining credits. If the output shows `Session expired` or `Not authenticated`, re-run `higgsfield auth login`.
+
+### Session expiry
+
+Tokens expire. If any `higgsfield` command returns `Session expired`, run:
+
+```bash
+higgsfield auth login
+```
+
+Wait for the user to confirm they've completed the browser flow before continuing.
+
+---
+
+## MCP server authentication
+
+When using the Higgsfield MCP server (Claude tool use), authentication is managed automatically by the server — no CLI login is needed.
+
+Verify the active session:
 
 ```
 mcp: balance
 ```
 
-Response fields:
-- `email` — the authenticated user's email address
-- `credits` — remaining generation credits
-- `subscription_plan_type` — e.g. `"creator"`, `"pro"`, `"free"`
+Returns `email`, `credits`, and `subscription_plan_type`. If the call fails, the user must re-authenticate through the Higgsfield MCP server configuration.
 
-If the MCP server is not authenticated, the call will return an error. In that case, the user must re-authenticate through the Higgsfield MCP server configuration.
+---
 
-## Workspace context
+## Workspace context (MCP)
 
-All MCP operations run in the context of a workspace. The default is the user's private workspace.
+All MCP operations target the currently selected workspace (default: private workspace).
 
-**List available workspaces:**
+**List workspaces:**
 ```
 mcp: list_workspaces
 ```
 
-Response includes an array of workspaces, each with:
-- `id` — UUID to pass to `select_workspace`
-- `name` — human-readable name
-- `is_selected` — `true` for the currently active workspace
-
-**Switch to a team or shared workspace:**
+**Switch workspace:**
 ```
 mcp: select_workspace
-  workspace_id: "<uuid from list_workspaces>"
+  workspace_id: "<id from list_workspaces>"
 ```
 
-**Return to the private workspace:**
+**Reset to private workspace:**
 ```
 mcp: select_workspace
   clear: true
 ```
 
-The workspace selection persists across sessions until explicitly changed.
+The selection persists across sessions until changed.
 
-## No client-side auth code needed
+---
 
-The Higgsfield MCP server handles token storage and refresh. When building applications that call Higgsfield's REST API directly (outside the MCP layer), use a Higgsfield API key obtained from the Higgsfield dashboard. Pass it as a Bearer token:
+## Direct REST API (no CLI or MCP)
+
+For applications calling the Higgsfield REST API directly, obtain an API key from the Higgsfield dashboard and pass it as a Bearer token:
 
 ```http
 Authorization: Bearer <your-api-key>
 ```
-
-For MCP-based workflows (Claude tool use), no additional auth setup is required.

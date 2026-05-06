@@ -11,17 +11,12 @@ Use this skill whenever the user wants to generate videos or images with Higgsfi
 
 ## Authentication
 
-Higgsfield authentication is handled automatically by the MCP server. No API keys or login steps are required in code.
+Two auth paths are supported:
 
-To verify the current authenticated user and available credits:
+- **CLI**: install the `higgsfield` CLI, then run `higgsfield auth login` (opens browser). Check with `higgsfield account status`.
+- **MCP server**: authentication is automatic. Verify with `mcp: balance` → returns `email`, `credits`, `subscription_plan_type`.
 
-```
-mcp: balance
-```
-
-Returns: `email`, `credits`, `subscription_plan_type`.
-
-See [rules/auth-login.md](rules/auth-login.md) for full authentication details.
+See [rules/auth-login.md](rules/auth-login.md) for full details on both paths.
 
 ## Workspaces
 
