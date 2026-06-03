@@ -1,5 +1,6 @@
 import {Composition} from 'remotion';
 import {MyAnimation as BarChartAnimation} from '../skills/remotion/rules/assets/charts-bar-chart';
+import {MyAnimation as LineGraphAnimation} from '../skills/remotion/rules/assets/charts-line-graph';
 import {MyAnimation as TypewriterAnimation} from '../skills/remotion/rules/assets/text-animations-typewriter';
 import {MyAnimation as WordHighlightAnimation} from '../skills/remotion/rules/assets/text-animations-word-highlight';
 
@@ -10,6 +11,14 @@ export const RemotionRoot = () => {
 				id="BarChart"
 				component={BarChartAnimation}
 				durationInFrames={120}
+				fps={30}
+				width={1280}
+				height={720}
+			/>
+			<Composition
+				id="LineGraph"
+				component={LineGraphAnimation}
+				durationInFrames={150}
 				fps={30}
 				width={1280}
 				height={720}

@@ -1,6 +1,6 @@
 {
-	"extends": "../tsconfig.settings.json",
 	"compilerOptions": {
+		"strict": true,
 		"module": "Preserve",
 		"esModuleInterop": true,
 		"resolveJsonModule": false,

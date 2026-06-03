@@ -9,8 +9,8 @@
 	"private": true,
 	"version": "4.0.457",
 	"devDependencies": {
-		"@remotion/eslint-config-internal": "^4.0.0",
-		"eslint": "catalog:",
+		"@types/react": "^19.2.16",
+		"@types/react-dom": "^19.2.3",
 		"@remotion/bundler": "^4.0.0",
 		"remotion": "^4.0.0",
 		"react": "catalog:",

@@ -330,6 +330,10 @@ See [rules/videos.md](rules/videos.md) for advanced knowledge about embedding vi
 
 See [rules/parameters.md](rules/parameters.md) for making a composition parametrizable by adding a Zod schema.
 
+## Line graphs and charts
+
+See [rules/graphify.md](rules/graphify.md) for animated line graph patterns — progressive line drawing, area fill, staggered dot pop-ins, and SVG coordinate scaling.
+
 ## Maps
 
 For simple maps with little flyovers, consider just using a static images for maps.
