@@ -210,6 +210,8 @@ npx remotion still [composition-id] --scale=0.25 --frame=30
 
 At 30 fps, `--frame=30` is the one-second mark (`--frame` is zero-based).
 
+For a fuller visual QA pass — actually looking at the rendered output to catch layout, color, or timing bugs — load the [video-vision](../video-vision/SKILL.md) skill.
+
 ## Captions
 
 When dealing with captions or subtitles, load the [./rules/subtitles.md](./rules/subtitles.md) file for more information.
